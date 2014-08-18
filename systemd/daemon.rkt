@@ -11,7 +11,7 @@
 
 (provide
   (contract-out
-    (sd-notify (-> symbol? any/c (symbols 'no-systemd 'failed 'notified)))
+    (sd-notify (-> string? (symbols 'no-systemd 'failed 'notified)))
     (sd-port (-> exact-nonnegative-integer? (values input-port? output-port?)))
     (sd-port-count (-> exact-nonnegative-integer?))))
 
@@ -52,9 +52,8 @@
                        ((> result 0) 'notified))))
 
 
-(define (sd-notify name value)
-  (let ((name (string-upcase (symbol->string name))))
-    (sd_notify (format "~a=~a" name value))))
+(define (sd-notify state)
+  (sd_notify state))
 
 
 (define (sd-port index)

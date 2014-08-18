@@ -10,7 +10,7 @@
   (sd-port 0))
 
 ;; Signal that we are ready.
-(sd-notify 'ready 1)
+(sd-notify "READY=1")
 ```
 
 Only TCP sockets are supported right now.
