@@ -11,7 +11,7 @@
 
 (provide
   (contract-out
-    (sd-notify (-> string? (symbols 'no-systemd 'failed 'notified)))
+    (sd-notify (-> string? void?))
     (sd-port (-> exact-nonnegative-integer? (values input-port? output-port?)))
     (sd-port-count (-> exact-nonnegative-integer?))))
 
@@ -53,7 +53,8 @@
 
 
 (define (sd-notify state)
-  (sd_notify state))
+  (when (eq? (sd_notify state) 'failed)
+    (error 'sd-notify "unknown error, possibly invalid state specified")))
 
 
 (define (sd-port index)

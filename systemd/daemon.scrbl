@@ -9,10 +9,12 @@
 
 @defmodule[systemd/daemon]
 
-@defproc[(sd-notify (state string?)) (symbols 'no-systemd 'failed 'notified)]{
+@defproc[(sd-notify (state string?)) void?]{
   Informs systemd about changed daemon state. This takes a number of
   newline separated environment-style variable assignments in a
   string.
+
+  Does nothing if we are not being run under systemd.
 }
 
 @defproc[(sd-port-count) exact-nonnegative-integer?]{
