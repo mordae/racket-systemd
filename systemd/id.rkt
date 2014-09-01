@@ -12,6 +12,7 @@
 
 (provide
   (contract-out
+    (sd-id? predicate/c)
     (sd-random-id (-> string?))
     (sd-machine-id (-> string?))
     (sd-boot-id (-> string?))))
@@ -43,6 +44,10 @@
                          (bytes->hex-string id)
                          (error 'sd-boot-id "failed to retrieve")))
            #:c-id sd_id128_get_boot)
+
+(define (sd-id? value)
+  (and (string? value)
+       (regexp-match? #px"^[0-9a-f]{32}$" value)))
 
 
 ; vim:set ts=2 sw=2 et:
