@@ -23,14 +23,11 @@
 (define-scheme scheme_socket_to_ports
                (_fun (fd : _intptr)
                      (name : _string/utf-8)
-                     (close? : _bool)
+                     (close? : _bool = #f)
                      (in : (_ptr o _scheme))
                      (out : (_ptr o _scheme))
                      --> _void
-                     --> (begin
-                           (register-finalizer in close-input-port)
-                           (register-finalizer out close-output-port)
-                           (values in out))))
+                     --> (values in out)))
 
 (define-sd sd_listen_fds
            (_fun (_int = 0) --> _int))
@@ -64,10 +61,10 @@
        (error 'sd-port "no systemd file descriptor ~a" fd))
 
       ((sd_is_socket fd 'inet 'stream #f)
-       (scheme_socket_to_ports fd "systemd-inet" #f))
+       (scheme_socket_to_ports fd "systemd-inet"))
 
       ((sd_is_socket fd 'inet6 'stream #f)
-       (scheme_socket_to_ports fd "systemd-inet6" #f))
+       (scheme_socket_to_ports fd "systemd-inet6"))
 
       (else (error 'sd-port "unsupported file descriptor ~a type" fd)))))
 
