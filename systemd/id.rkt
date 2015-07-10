@@ -13,9 +13,9 @@
 (provide
   (contract-out
     (sd-id? predicate/c)
-    (sd-random-id (-> string?))
-    (sd-machine-id (-> string?))
-    (sd-boot-id (-> string?))))
+    (sd-random-id (-> sd-id?))
+    (sd-machine-id (-> sd-id?))
+    (sd-boot-id (-> sd-id?))))
 
 
 (define-ffi-definer define-sd (ffi-lib "libsystemd-id128" '("0" "")))

@@ -3,9 +3,9 @@
 @require[scribble/eval]
 
 @require[(for-label racket)
-         (for-label "daemon.rkt")]
+         (for-label systemd/daemon)]
 
-@title{Daemon}
+@title{Daemons}
 
 @defmodule[systemd/daemon]
 

@@ -6,5 +6,6 @@
 @author+email["Jan Dvořák" "mordae@anilinux.org"]
 
 @include-section["daemon.scrbl"]
+@include-section["id.scrbl"]
 
 @; vim:set ft=scribble sw=2 ts=2 et:
